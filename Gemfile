@@ -43,7 +43,3 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
-#Gumby Framework
-gem 'gumby-rails'
-

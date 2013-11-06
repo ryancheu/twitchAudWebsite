@@ -1,0 +1,12 @@
+<div class="block">
+    <button class="pure-button pure-button-secondary plus"><h1>+</h1></button>
+</div>
+
+<script>
+var addBlock = function() {
+    $('.blockMain').last().after("<%= escape_javascript("#{render :partial => 'main/block'}").html_safe %>");
+    positionLast();
+}
+
+$('.plus').click( addBlock );
+</script>

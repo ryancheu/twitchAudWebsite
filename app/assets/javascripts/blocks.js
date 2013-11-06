@@ -1,56 +1,71 @@
+//This block moving code is taken from
 //http://labs.benholland.me/pinterest/
-//This arranges blocks in a nice order
-//I took it mostly from the website above,
-//but had to modify it a lot to fix various bugs
-function BlockMover() {
-    var colCount = 0;
-    var colWidth = 0;
-    var margin = 20;
-    var windowWidth = 0;
-    var blocks = [];
+var colCount = 0;
+var colWidth = 300;
+var margin = 10;
+var spaceLeft = 0;
+var windowWidth = 0;
+var blocks = [];
+var lastI = 0;
 
-    $(function(){
-        $(window).resize(setupBlocks);
-    });
+$(function(){
+    $(window).ready(setupBlocks);
+    $(window).resize(setupBlocks);
+});
 
-    // Function to get the Min value in Array
-    //private function
-    Array.min = function(array) {
-        return Math.min.apply(Math, array);
-    };
+function setupBlocks() {
+    windowWidth = $(window).width();
+    blocks = [];
+
+    // Calculate the margin so the blocks are evenly spaced within the window
+    colCount = Math.floor(windowWidth/(colWidth+margin*2));
+    spaceLeft = (windowWidth - ((colWidth*colCount)+(margin*(colCount-1)))) / 2;
+    console.log(spaceLeft);
     
-    //public function
-    var setupBlocks = function() {
-        windowWidth = $("#main_content").width();
-        colWidth = $('.block').outerWidth();
-        blocks = [];
-        colCount = Math.floor(windowWidth/(colWidth+margin*2));
-        for(var i=0;i<colCount;i++){
-	    blocks.push(margin);
-        }
-        positionBlocks();
+    for(var i=0;i<colCount;i++){
+	blocks.push(margin);
     }
-
-    //private function
-    var positionBlocks = function () {
-        $('.block').each(function(){
-	    var min = Array.min(blocks);
-	    var index = $.inArray(min, blocks);
-	    var leftPos = margin+(index*(colWidth+margin));
-            if (leftPos > 0 && min > 0) {
-	        $(this).css({
-	            'left':leftPos+'px',
-	            'top':min+'px'
-	        });
-            }
-	    blocks[index] = min+$(this).outerHeight()+margin;
-        });	
-    }
-
-    return {
-        setupBlocks: setupBlocks
-    }
+    positionBlocks();
 }
 
-//When the page loaded in, setup the blocks
-$(window).ready(BlockMover().setupBlocks);
+function positionBlocks() {
+    $('.block').each(function(i){
+	var min = Array.min(blocks);
+	var index = $.inArray(min, blocks);
+	var leftPos = margin+(index*(colWidth+margin));
+	$(this).css({
+	    'left':(leftPos+spaceLeft)+'px',
+	    'top':min+'px'
+	});
+	blocks[index] = min+$(this).outerHeight()+margin;
+        lastI = i;
+    });	
+}
+
+function positionLast() {
+    var lastBlock = $('.block').last();
+    var min = Array.min(blocks);
+    var index = $.inArray(min, blocks);
+    var leftPos = margin+(index*(colWidth+margin));
+    var oldLeft = lastBlock.css("left");
+    var oldTop = lastBlock.css("top");
+    lastBlock.css({
+	'left':(leftPos+spaceLeft)+'px',
+	'top':min+'px'
+    });
+
+    blocks[index] = min+lastBlock.outerHeight()+margin;
+
+    var lastBlockMain = $('.blockMain').last();
+    lastBlockMain.css({
+	'left':oldLeft+'',
+	'top':oldTop+''
+    });
+
+    
+}
+
+// Function to get the Min value in Array
+Array.min = function(array) {
+    return Math.min.apply(Math, array);
+};
