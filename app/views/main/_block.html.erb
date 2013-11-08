@@ -1,22 +1,19 @@
 <div class="block blockMain pure-u-1-3">
-  <form class="pure-form pure-form-stacked">
-    <fieldset>
-      <label for="tusername">Twitch Streamer</label>
-      <input id="tusername" type="password" placeholder="Username">
-      <br>
-      <label for="state">Server Address</label>
-      <select id="state" class="pure-input">
-        <option value="def1">Default 1(xvm)</option>
-        <option value="def2">Default 2(ec2)</option>
-        <option value="custom">Custom Server</option>
-      </select>
+    <div class="removeBox">X</div>
+    <form class="pure-form pure-form-stacked jp-container">
+        <fieldset>
+            <label for="tusername">Twitch Streamer</label>
+            <input class="tusername" type="text" placeholder="Username"/>
+            <br>
+            <label for="state">Server Address</label>
+            <input class="serverurl" type="text" placeholder="Server URL"/>
 
-      <br>
-      <p>
-	<div id="jquery_jplayer" class="jp-jplayer"></div>
-	<div id="play" class="pure-button pure-button-secondary">play</div>
-	<a href="javascript:;" class="pure-button pure-button-secondary" id="stop">stop</a>
-      </p>
-    </fieldset>
-  </form>
+            <br>
+            <p>
+        	<div class="pure-button pure-button-secondary play">play</div>
+	        <a href="javascript:;" class="pure-button pure-button-secondary stop">stop</a>
+            </p>
+            <div id="jquery_jplayer" class="jp-jplayer"></div>
+        </fieldset>
+    </form>
 </div>

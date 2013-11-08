@@ -22,6 +22,10 @@
 .blockMain{
 }
 
+.removeBox {
+    float: right;
+}
+
 .plus {
     width: 100%;
     height: 100%;

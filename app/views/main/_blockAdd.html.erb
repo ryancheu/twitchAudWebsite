@@ -5,7 +5,8 @@
 <script>
 var addBlock = function() {
     $('.blockMain').last().after("<%= escape_javascript("#{render :partial => 'main/block'}").html_safe %>");
-    positionLast();
+bm.positionLast();
+    JPlayerManager().setupJplayers();
 }
 
 $('.plus').click( addBlock );
